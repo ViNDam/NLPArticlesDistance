@@ -26,12 +26,12 @@ if (length(args)==0 | length(args)==1) {
 }
 
 #------------- READ FILES-------------------------------------------------------
-mesh <- read.table("outfiles/meshMatrix.txt", header=T, check.names=F, sep="\t", quote="")
-#mesh <- read.table(args[1], header=T, check.names=F, sep="\t", quote="")
+#mesh <- read.table("outfiles/meshMatrix.txt", header=T, check.names=F, sep="\t", quote="")
+mesh <- read.table(args[1], header=T, check.names=F, sep="\t", quote="")
 mesh <- mesh[,which(colSums(mesh)>0)]
 
-D <- read.table("outfiles/tdMatrix.txt", header=T, check.names=F, sep="\t", quote="")
-#D <- read.table(args[2], header=T, check.names=F, sep="\t", quote="")
+#D <- read.table("outfiles/tdMatrix.txt", header=T, check.names=F, sep="\t", quote="")
+D <- read.table(args[2], header=T, check.names=F, sep="\t", quote="")
 ind <- match(colnames(mesh), colnames(D))
 D <- D[,ind]
 
