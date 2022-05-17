@@ -1,5 +1,5 @@
 #!/usr/bin/RScript
-# --------------------------------------------------------------------------
+####################################################
 # Author: Vi Dam
 # Version: 20201218
 # Goal: Calculate the distance between artiles
@@ -14,7 +14,7 @@
 # are calculated.
 #
 # Usage: Rscript distance.R path/meshMatrix.txt path/tdMatrix.txt
-# --------------------------------------------------------------------------
+####################################################
 args = commandArgs(trailingOnly=TRUE)
 
 # test if there is at least 2 argument: if not, return an error
@@ -26,19 +26,25 @@ if (length(args)==0 | length(args)==1) {
 }
 
 #------------- READ FILES-------------------------------------------------------
-mesh <- read.table(args[1], header=T, check.names=F, sep="\t", quote="")
-mesh <- mesh[,-(which(colSums(mesh)==0))]
+mesh <- read.table("outfiles/meshMatrix.txt", header=T, check.names=F, sep="\t", quote="")
+#mesh <- read.table(args[1], header=T, check.names=F, sep="\t", quote="")
+mesh <- mesh[,which(colSums(mesh)>0)]
 
-D <- read.table(args[2], header=T, check.names=F, sep="\t", quote="")
+D <- read.table("outfiles/tdMatrix.txt", header=T, check.names=F, sep="\t", quote="")
+#D <- read.table(args[2], header=T, check.names=F, sep="\t", quote="")
 ind <- match(colnames(mesh), colnames(D))
 D <- D[,ind]
 
 #------------- TERM-DOCUMENT MATRIX Distance calculation------------------------
 # ----- Euclidean distance ----------
 tD <- t(D)
+#print(tD)
+
 dist <- as.matrix(dist(tD, method="euclidean"))
+#print(colnames(dist))
 D.dist <- t(combn(colnames(dist), 2))
 D.dist <- data.frame(D.dist, dist=dist[D.dist])
+#print(D.dist)
 
 # ----- cosine angle distances-------
 D.dist$acos <- ""
