@@ -6,6 +6,8 @@ This algorithm extracts the list of tokens from each cancer research article sin
 
 All cancer research articles were downloaded from PubMed using the descriptor name “Neoplasms”; then they were parsed to extract the PubMed ID (PMID), Year of publication (Year), Title, and Mesh Term into the “cancersArticles.txt” file, which is the input file for this algorithm. 
 
+This project helps determine which approach is appropriate for novel NLP analyses as an alternative to Medical Subject Headings(Mesh) Terms.
+
 ## INSTALL
 The user needs to install pandas, scipy, string, NumPy, and nltk packages. 
 
