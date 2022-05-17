@@ -32,7 +32,7 @@ Note: This project was tested and run on a GPU machine, and it took several hour
 In this code, a list of “stopwords,” “Punkt,” and “wordnet” will be automatically downloaded from nltk. 
 The user inputs the text document containing articles with PMID, Year, Title, and MeshTerm in tab-delimited format. 
 
-python prep.py path/cancersArticles.txt
+python prep.py -f ../cancersArticlesSample.txt
 
 The two output files “tdMatrix.txt” and “meshMatrix.txt” will be created in the same directory. 
 The user can change the year filter in line 38.
