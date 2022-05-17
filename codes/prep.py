@@ -11,17 +11,16 @@ import os
 import pandas as pd
 import scipy
 import string
+import argparse
 import numpy as np
 from numpy.linalg import norm
 import nltk
 from nltk import *
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 nltk.download('stopwords')
 nltk.download('punkt')
-from nltk.corpus import stopwords
-stopwords = nltk.corpus.stopwords.words('english')
-from nltk.stem import WordNetLemmatizer
 nltk.download('wordnet')
-lemmatizer = WordNetLemmatizer()
 
 # ----------------- Parse parameters  ---------------------------
 parser = argparse.ArgumentParser(description='Prep data')
@@ -66,9 +65,9 @@ for t in df2.Title:
     tokens.append(word_tokenize(t)) #list of all 1118214 titles/sentences'tokens)
 
 # remove stop words, non alpha characters and words with less than 2 alphabet
-
 # convert lemmatize, combine root words. ie. cancers & cancer = cancer & cancer
-
+stopwords = nltk.corpus.stopwords.words('english')
+lemmatizer = WordNetLemmatizer()
 words = [lemmatizer.lemmatize(word) for word in words]
 
 for ind,title in enumerate(tokens):
