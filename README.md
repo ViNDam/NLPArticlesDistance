@@ -27,14 +27,18 @@ The differences between those three distances and mesh terms distance are compar
 Note: This project was tested and run on a GPU machine, and it took several hours to complete the first step, “prep.py.” 
 
 ### 1.	prep.py
-In this code, a list of “stopwords,” “Punkt,” and “wordnet” will be downloaded from nltk. 
-The user needs to change the directory to the folder that contains the “cancersArticles.txt” file. 
+In this code, a list of “stopwords,” “Punkt,” and “wordnet” will be automatically downloaded from nltk. 
+The user inputs the text document containing articles with PMID, Year, Title, and MeshTerm in tab-delimited format. 
+
+python prep.py path/cancersArticles.txt
+
 The two output files “tdMatrix.txt” and “meshMatrix.txt” will be created in the same directory. 
 The user can change the year filter in line 38.
 
 ### 2.	distance. R
-The user needs to change the directory to the folder that contains the “cancersArticles.txt” file. 
+The user input the path to meshMatrix then tdMatrix. 
+
+Rscript distance.R path/meshMatrix.txt path/tdMatrix.txt
+
 The “dist” is used, but it is supposed to be the standard in R. The user should not need to install the package unless it is not found. 
 The user can change the number of selected SVD low-rank approximations in line 43. 
-
-After the packages are installed and the directory is changed, the user needs to run these two codes, and the distance output will be produced. 
