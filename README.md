@@ -6,8 +6,11 @@ All cancer research articles were downloaded from PubMed using the descriptor na
 
 ## INSTALL
 The user needs to install pandas, scipy, string, NumPy, and nltk packages. 
+
 conda install -c anaconda pandas 
+
 conda install -c conda-forge r-stringi numpy nltk
+
 pip install spicy
 
 ## CODE
@@ -15,12 +18,16 @@ The algorithm includes two parts:
 
 ### 1.	prep.py
 In this step, the code takes “cancersArticles.txt” as input and removes all articles that contain empty information related to Year and Mesh Term. Then, it filters the articles since 2019. 
+
 The list of all unique tokens is extracted from the articles. The stopwords, punctuations, and words less than or equal to 2 characters are removed. All the words are converted to non-capitalized words. Similar unique tokens for mesh terms are also created using the same pipeline. 
+
 The term-document matrix and mesh-document matrix are created by counting the number of times the word appears in each article’s title or Mesh term list, respectively. “tdMatrix.txt” and “meshMatrix.txt” are produced. 
 
 ### 2.	distance. R
 The “tdMatrix.txt” and “meshMatrix.txt” files will be used as inputs in this step. The distance between articles using Euclidean distance, angle distance, and top 5 SVD distance methods are calculated. The distance among articles’ mesh terms is computed using cosine angle distance. 
+
 Then, the difference between articles’ euclidean distance, articles’ cosine angle and mesh terms distance, and articles’ SVD cosine angle with respect to mesh terms distance are calculated. 
+
 The differences between those three distances and mesh terms distance are compared and analyzed for the project conclusion. 
 
 
