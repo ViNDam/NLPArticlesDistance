@@ -4,6 +4,11 @@ This algorithm extracts the list of tokens from each cancer research article sin
 
 All cancer research articles were downloaded from PubMed using the descriptor name “Neoplasms”; then they were parsed to extract the PubMed ID (PMID), Year of publication (Year), Title, and Mesh Term into the “cancersArticles.txt” file, which is the input file for this algorithm. 
 
+## INSTALL
+The user needs to install pandas, scipy, string, NumPy, and nltk packages. 
+
+
+## CODE
 The algorithm includes two parts:
 
 ### 1.	prep.py
@@ -17,12 +22,11 @@ Then, the difference between articles’ euclidean distance, articles’ cosine 
 The differences between those three distances and mesh terms distance are compared and analyzed for the project conclusion. 
 
 
-## Usage
+## USAGE
 
 Note: This project was tested and run on a GPU machine, and it took several hours to complete the first step, “prep.py.” 
 
 ### 1.	prep.py
-The user needs to install pandas, scipy, string, NumPy, and nltk packages. 
 In this code, a list of “stopwords,” “Punkt,” and “wordnet” will be downloaded from nltk. 
 The user needs to change the directory to the folder that contains the “cancersArticles.txt” file. 
 The two output files “tdMatrix.txt” and “meshMatrix.txt” will be created in the same directory. 
