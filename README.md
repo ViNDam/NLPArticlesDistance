@@ -1,3 +1,5 @@
+READ ME 
+
 # NLPArticlesDistance
 
 This algorithm extracts the list of tokens from each cancer research article since 2019 and calculates the relationship between articles using algorithms including Euclidean distance, Vector Space Model (VSM), and Latent Semantic Analysis (LSA). Specifically, the Euclidean distance, the cosine angle obtained from VSM, and the Singular Vector Decomposition (SVD) low rank of LSA methods are compared. The distance between Mesh Terms of each document is calculated and used to validate the abovementioned results. 
@@ -21,12 +23,14 @@ In this step, the code takes “cancersArticles.txt” as input and removes all 
 
 The list of all unique tokens is extracted from the articles. The stopwords, punctuations, and words less than or equal to 2 characters are removed. All the words are converted to non-capitalized words. Similar unique tokens for mesh terms are also created using the same pipeline. 
 
-The term-document matrix and mesh-document matrix are created by counting the number of times the word appears in each article’s title or Mesh term list, respectively. “tdMatrix.txt” and “meshMatrix.txt” are produced. 
+The term-document matrix and mesh-document matrix are created by counting the number of times the word appears in each article’s title or Mesh term list, respectively. “tdMatrix.txt” and “meshMatrix.txt” are produced in the outfiles directory. 
 
 ### 2.	distance. R
 The “tdMatrix.txt” and “meshMatrix.txt” files will be used as inputs in this step. The distance between articles using Euclidean distance, angle distance, and top 5 SVD distance methods are calculated. The distance among articles’ mesh terms is computed using cosine angle distance. 
 
 Then, the difference between articles’ euclidean distance, articles’ cosine angle and mesh terms distance, and articles’ SVD cosine angle with respect to mesh terms distance are calculated. 
+
+“TermsDistance.tsv” and “meshDistance.tsv” files will be produced in the outfiles directory. They contain the distance between articles using terms and mesh terms specifically. 
 
 The differences between those three distances and mesh terms distance are compared and analyzed for the project conclusion. 
 
