@@ -2,7 +2,7 @@
 ####################################################
 # Author: Vi Dam
 # Version: 20201218
-# Goal: Calculate the distance between artiles
+# Goal: Calculate the distance between artiles using article terms and meshTerms. Then, compare the difference between two methods.
 #
 # The distance between artiles are calculated using Euclidean distance, angle distance and SVD distance
 # The distance among articles’ mesh terms is also calculated using cosine angle distance.
@@ -43,7 +43,7 @@ tD <- t(D)
 dist <- as.matrix(dist(tD, method="euclidean"))
 #print(colnames(dist))
 D.dist <- t(combn(colnames(dist), 2))
-D.dist <- data.frame(D.dist, dist=dist[D.dist])
+D.dist <- data.frame(D.dist, euclDist=dist[D.dist])
 #print(D.dist)
 
 # ----- cosine angle distances-------
@@ -73,6 +73,7 @@ for (i in 1:nrow(D.dist)){
 }
 
 D.dist[,3:5] <- apply(D.dist[,3:5], 2, as.numeric)
+write.table(D.dist, file="outfiles/TermsDistance.tsv", quote=F, sep="\t", row.names=F)
 
 # ------------VALIDATE using MESH-TERMS MATRIX----------------------
 
@@ -80,7 +81,8 @@ D.dist[,3:5] <- apply(D.dist[,3:5], 2, as.numeric)
 tmesh <- t(mesh)
 dist <- as.matrix(dist(tmesh, method="euclidean"))
 mesh.dist <- t(combn(colnames(dist), 2))
-mesh.dist <- data.frame(mesh.dist, dist=dist[mesh.dist])
+mesh.dist <- data.frame(mesh.dist, VSM=dist[mesh.dist])
+mesh.dist["euclDist"] <- mesh.dist["VSM"]
 
 # ------ angle distances--------
 mesh.dist$acos <- ""
@@ -88,11 +90,14 @@ for (i in 1:nrow(mesh.dist)){
   mesh.dist$acos[i] <- acos((tmesh[rownames(tmesh)==mesh.dist[i,1],] %*% tmesh[rownames(tmesh)==mesh.dist[i,2],]) / (norm(tmesh[rownames(tmesh)==mesh.dist[i,1],], "2") * norm(tmesh[rownames(tmesh)==mesh.dist[i,2],], "2")))
 }
 mesh.dist[,3:ncol(mesh.dist)] <- apply(mesh.dist[,3:ncol(mesh.dist)], 2, as.numeric)
+write.table(mesh.dist, file="outfiles/meshDistance.tsv", quote=F, sep="\t", row.names=F)
 
 # ------ DIFFERENCES between cosine angle and DLowRank------
-tmp <- norm(as.matrix(mesh.dist$acos) - as.matrix(D.dist$dist), "F") / norm(as.matrix(D.dist$dist), "F") * 100
-print(paste("The distance between articles and mesh terms using Euclidean distance is", tmp, "percent."))
+tmp <- norm(as.matrix(mesh.dist$euclDist) - as.matrix(D.dist$euclDist), "F") / norm(as.matrix(D.dist$euclDist), "F") * 100
+print(paste("The distance between articles terms and mesh terms using Euclidean distance is", tmp, "percent."))
+
 tmp <- norm(as.matrix(mesh.dist$acos) - as.matrix(D.dist$acos), "F") / norm(as.matrix(D.dist$acos), "F") * 100
-print(paste("The distance between articles and mesh terms using cosine angle is", tmp, "percent."))
+print(paste("The distance between articles terms and mesh terms using cosine angle is", tmp, "percent."))
+
 tmp <- norm(as.matrix(mesh.dist$acos) - as.matrix(D.dist$SVDLowRank), "F") / norm(as.matrix(D.dist$SVDLowRank), "F") * 100
-print(paste("The distance between articles and mesh terms using SVD is", tmp, "percent."))
+print(paste("The distance between articles terms and mesh terms using SVD is", tmp, "percent."))
