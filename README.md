@@ -6,7 +6,9 @@ All cancer research articles were downloaded from PubMed using the descriptor na
 
 ## INSTALL
 The user needs to install pandas, scipy, string, NumPy, and nltk packages. 
-
+conda install -c anaconda pandas 
+conda install -c conda-forge r-stringi numpy nltk
+pip install spicy
 
 ## CODE
 The algorithm includes two parts:
